@@ -1,0 +1,40 @@
+Nome da Empresa: PixelForge Studios
+Fundação: 2015
+Localização: São Paulo, Brasil
+Funcionários: 120
+Jogos Lançados:
+  - "Shadow Realms" (2016)
+  - "Cyber Nexus" (2018)
+  - "Eclipse Warriors" (2020)
+  - "Starlight Chronicles" (2022)
+
+Próximos Lançamentos:
+  - "Neon Legends" (2024)
+  - "Mystic Quest" (2025)
+
+Vendas Anuais:
+  - 2016: R$ 5.000.000
+  - 2017: R$ 7.500.000
+  - 2018: R$ 12.000.000
+  - 2019: R$ 18.000.000
+  - 2020: R$ 25.000.000
+  - 2021: R$ 30.000.000
+  - 2022: R$ 35.000.000
+
+Principais Plataformas:
+  - PC
+  - PlayStation
+  - Xbox
+  - Nintendo Switch
+
+Clientes Ativos: 2.500.000
+Avaliação Média dos Jogos: 4.7/5
+Prêmios:
+  - Melhor Jogo Independente (2018) - "Cyber Nexus"
+  - Inovação em Design (2020) - "Eclipse Warriors"
+  - Jogo do Ano (2022) - "Starlight Chronicles"
+
+Metas para 2024:
+  - Lançar "Neon Legends" com sucesso.
+  - Expandir para o mercado asiático.
+  - Atingir 5.000.000 de clientes ativos.
