@@ -161,9 +161,9 @@ Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICEN
 
 Se você é líder de tecnologia ou representa uma empresa e se interessou pelo projeto, fique à vontade para entrar em contato! Estou aberto a parcerias, colaborações ou contratações para levar o Oráculo ao próximo nível.
 
-- **LinkedIn**: [Seu Nome](https://www.linkedin.com/in/yuriferr)
+- **LinkedIn**: [Yuri Fernandes](https://www.linkedin.com/in/yuriferr)
 - **E-mail**: yurifernandespreto@gmail.com
 
 ---
 
-Feito com ❤️ por [Seu Nome](https://github.com/Yuriferr).  
+Feito com ❤️ por [Yuriferr](https://github.com/Yuriferr).  
