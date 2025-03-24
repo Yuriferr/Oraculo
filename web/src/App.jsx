@@ -1,6 +1,7 @@
-import './App.css';
+import './App.scss';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 export default function App() {
   const [prompt, setPrompt] = useState(''); // Estado para armazenar a mensagem do usuário
@@ -9,12 +10,21 @@ export default function App() {
   const [isUploading, setIsUploading] = useState(false); // Estado para indicar carregamento do upload
   const [isSending, setIsSending] = useState(false); // Estado para indicar carregamento do envio da mensagem
   const [uploadStatus, setUploadStatus] = useState(''); // Estado para feedback do upload
+  const messageBoxRef = useRef(null); // Referência para a caixa de mensagens
+
+  // Efeito para rolar automaticamente para a última mensagem
+  useEffect(() => {
+    if (messageBoxRef.current) {
+      messageBoxRef.current.scrollTop = messageBoxRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   // Função para lidar com o envio do arquivo
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (file && file.name.endsWith(".txt")) {
       setFile(file); // Armazenar o arquivo
+      setUploadStatus('');
     } else {
       setUploadStatus("Apenas arquivos .txt são permitidos.");
       setFile(null); // Limpar o arquivo selecionado
@@ -84,65 +94,51 @@ export default function App() {
 
   return (
     <div className='App'>
-      <header className='App-header'>
+      <section className='app-box'>
         <h1>Oráculo</h1>
 
-        {/* Seção de upload de arquivo */}
-        <div className='file-upload-section'>
-          <h3>Envie um arquivo (.txt)</h3>
-          <input
-            type="file"
-            accept=".txt"
-            onChange={handleFileUpload}
-            disabled={isUploading || isSending} // Desabilitar o campo durante o carregamento
-          />
-          {file && (
-            <div className='file-info'>
-              <h4>Arquivo selecionado:</h4>
-              <p>{file.name}</p>
-            </div>
-          )}
-          <button onClick={handleUploadFile} disabled={isUploading || !file}>
-            {isUploading ? 'Enviando...' : 'Enviar Arquivo'}
-          </button>
-          {uploadStatus && <p>{uploadStatus}</p>}
+        <div className='icon-box'>
+          <img src="/cat.png" alt="cat" />
         </div>
 
-        {/* Chat container */}
-        <div className='chat-container'>
-          <div className='messages'>
+        {/* Formulário para envio de arquivos */}
+        <form onSubmit={(e) => { e.preventDefault(); handleUploadFile(); }} className='file-form'>
+          <h3>Envio de Arquivo</h3>
+          <div>
+            <input type="file" accept=".txt" onChange={handleFileUpload} />
+            <button type="submit" disabled={isUploading}>
+              {isUploading ? 'Enviando...' : 'Enviar Arquivo'}
+            </button>
+          </div>
+          {uploadStatus && <p>{uploadStatus}</p>}
+        </form>
+
+        {/* Formulário para envio de mensagens */}
+        <form onSubmit={handleSubmit} className='message-form'>
+          <h3>Envio de Mensagens</h3>
+          <div className="message-box" ref={messageBoxRef}>
             {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`message ${message.sender === 'user' ? 'user-message' : 'ai-message'}`}
-              >
-                {message.text}
+              <div key={index} className={message.sender}>
+                <strong>{message.sender === 'user' ? 'Você' : 'IA'}:</strong>
+                {message.sender === 'ai' ? (
+                  <ReactMarkdown>{message.text}</ReactMarkdown>
+                ) : (
+                  <p>{message.text}</p>
+                )}
               </div>
             ))}
-            {isSending && (
-              <div className='message ai-message'>
-                <div className='loading-dots'>
-                  <span>.</span>
-                  <span>.</span>
-                  <span>.</span>
-                </div>
-              </div>
-            )}
           </div>
-          <form onSubmit={handleSubmit} className='input-form'>
-            <input
-              type="text"
-              placeholder="Digite sua mensagem"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              disabled={isSending} // Desabilitar o campo durante o carregamento
-            />
-            <button type="submit" disabled={isSending}>
-              {isSending ? 'Enviando...' : 'Enviar'}
-            </button>
-          </form>
-        </div>
-      </header>
+          <input
+            type="text"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            placeholder="Digite sua mensagem"
+          />
+          <button type="submit" disabled={isSending}>
+            {isSending ? 'Enviando...' : 'Enviar Mensagem'}
+          </button>
+        </form>
+      </section>
     </div>
   );
 }
