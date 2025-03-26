@@ -146,7 +146,7 @@ Contribuições são bem-vindas! Siga os passos abaixo:
 - [x] Primeira versão funcional.
 - [ ] Integração com banco de dados.
 - [ ] Suporte a múltiplos arquivos.
-- [ ] Melhorias na interface do usuário.
+- [x] Melhorias na interface do usuário.
 - [ ] Adicionar autenticação de usuários.
 
 ---
