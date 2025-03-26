@@ -84,22 +84,26 @@ async def assistente_virtual(request: PromptRequest):
         # Enviar os dados para a IA
         completion = client.chat.completions.create(
             extra_headers={
-                "Authorization": f"Bearer {API_KEY}",  # Adicione a chave da API aqui
                 "HTTP-Referer": "<YOUR_SITE_URL>",  # Opcional
                 "X-Title": "<YOUR_SITE_NAME>",  # Opcional
             },
             extra_body={},
-            model="deepseek/deepseek-r1:free",  # Ou outro modelo
+            model="google/gemini-2.5-pro-exp-03-25:free",  # Novo modelo
             messages=[
                 {
                     "role": "system",
                     "content": f"""
-                    Você é um assistente virtual que ajuda a administrar uma empresa com base nos dados fornecidos. 
-                    DADOS:
+                    Você é um assistente virtual especializado em ajudar empresas a tomar decisões estratégicas. 
+                    Seu objetivo é analisar os dados fornecidos e responder de forma clara, objetiva e útil, 
+                    oferecendo insights e recomendações práticas para melhorar a gestão e os resultados da empresa.
+
+                    DADOS DA EMPRESA:
                     {dados_empresa}
 
-                    FORMATO DE SAIDA DA RESPOSTA:
-                    clara e objetiva
+                    FORMATO DE SAÍDA:
+                    - Respostas claras e objetivas.
+                    - Recomendações práticas e acionáveis.
+                    - Evite respostas vagas ou genéricas.
                     """
                 },
                 {

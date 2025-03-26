@@ -2,6 +2,8 @@ import './App.scss';
 import axios from 'axios';
 import { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { FaFileArchive, FaGithub, FaEnvelope, FaLinkedin } from "react-icons/fa";
+import { IoSend } from "react-icons/io5";
 
 export default function App() {
   const [prompt, setPrompt] = useState(''); // Estado para armazenar a mensagem do usuário
@@ -94,51 +96,66 @@ export default function App() {
 
   return (
     <div className='App'>
-      <section className='app-box'>
-        <h1>Oráculo</h1>
-
-        <div className='icon-box'>
-          <img src="/cat.png" alt="cat" />
+      <h1>Oráculo</h1>
+      <h2>Seu assistente pessoal para gerenciar sua empresa</h2>
+      <section className='chat-box'>
+        <div className='container-messagens' ref={messageBoxRef}>
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`message ${message.sender === 'user' ? 'user-message' : 'ai-message'}`}
+            >
+              <ReactMarkdown>{message.text}</ReactMarkdown>
+            </div>
+          ))}
         </div>
-
-        {/* Formulário para envio de arquivos */}
-        <form onSubmit={(e) => { e.preventDefault(); handleUploadFile(); }} className='file-form'>
-          <h3>Envio de Arquivo</h3>
-          <div>
-            <input type="file" accept=".txt" onChange={handleFileUpload} />
-            <button type="submit" disabled={isUploading}>
-              {isUploading ? 'Enviando...' : 'Enviar Arquivo'}
-            </button>
-          </div>
-          {uploadStatus && <p>{uploadStatus}</p>}
-        </form>
-
-        {/* Formulário para envio de mensagens */}
-        <form onSubmit={handleSubmit} className='message-form'>
-          <h3>Envio de Mensagens</h3>
-          <div className="message-box" ref={messageBoxRef}>
-            {messages.map((message, index) => (
-              <div key={index} className={message.sender}>
-                <strong>{message.sender === 'user' ? 'Você' : 'IA'}:</strong>
-                {message.sender === 'ai' ? (
-                  <ReactMarkdown>{message.text}</ReactMarkdown>
-                ) : (
-                  <p>{message.text}</p>
-                )}
-              </div>
-            ))}
-          </div>
+  
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="Digite sua mensagem"
+            placeholder="Digite sua mensagem..."
+            disabled={isSending}
           />
           <button type="submit" disabled={isSending}>
-            {isSending ? 'Enviando...' : 'Enviar Mensagem'}
+            <IoSend size={18} />
           </button>
         </form>
       </section>
+  
+      <button
+        className='upload-open-modal'
+        onClick={() => document.getElementById('file-upload').click()}
+      >
+        <FaFileArchive size={18} />
+      </button>
+      <input
+        id="file-upload"
+        type="file"
+        accept='.txt' 
+        style={{ display: 'none' }}
+        onChange={handleFileUpload}
+      />
+      {uploadStatus && <p className="upload-status">{uploadStatus}</p>}
+
+      <ul className='links-container'>
+        <li>
+          <a href="https://github.com/Yuriferr/Oraculo" target="_blank" rel="noopener noreferrer">
+            <FaGithub size={16} style={{ marginRight: '8px' }} /> GitHub
+          </a>
+        </li>
+        <li>
+          <a href="mailto:yurifernandespreto@gmail.com">
+            <FaEnvelope size={16} style={{ marginRight: '8px' }} /> Email
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/yuriferr/" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin size={16} style={{ marginRight: '8px' }} /> LinkedIn
+          </a>
+        </li>
+      </ul>
     </div>
   );
 }
